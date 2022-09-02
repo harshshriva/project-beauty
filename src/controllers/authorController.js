@@ -26,21 +26,13 @@ const createAuthor = async function(req, res) {
             res.status(400).send({ status: false, message: 'First name is required' })
             return
         }
-        if (!isValid(requestBody.phone)) {
-            return res.status(400).send({ status: false, msg: "Enter phone Number " })
-        }
-
-        if (!(/^[6-9]\d{9}$/.test(requestBody.phone))) {
-            return res.status(400).send({ status: false, message: `Phone number should be a valid number` })
-
-        }
-        
         if (!isValid(requestBody.email)) {
             res.status(400).send({ status: false, message: 'email is required' })
             return
         }
-
-
+        if (!isValid(requestBody.phone)) {
+            return res.status(400).send({ status: false, msg: "Enter phone Number " })
+        }
         const isEmailAlreadyUsed = await authorModel.findOne({ email: requestBody.email });
 
 
@@ -57,3 +49,5 @@ const createAuthor = async function(req, res) {
     }
 };
 module.exports.createAuthor = createAuthor;
+
+

@@ -15,8 +15,8 @@ const login = async function(req, res) {
             res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide login details' })
             return
         }
-        if (requestBody.fname && requestBody.phone) {
-            const check = await authorModel.findOne({ fname: requestBody.fname, phone: requestBody.phone });
+        if (requestBody.fname && requestBody.email) {
+            const check = await authorModel.findOne({ fname: requestBody.fname, email: requestBody.email });
             if (!check) {
                 return res.status(400).send({ status: true, msg: "Invalid login credentials" })
             }
@@ -26,10 +26,11 @@ const login = async function(req, res) {
             res.header('x-api-key', token);
             res.status(200).send({ status: true, data: "Author login successfull", token: { token } })
         } else {
-            res.status(400).send({ status: false, msg: "must contain fname and phone" })
+            res.status(400).send({ status: false, msg: "must contain fname and email" })
         }
     } catch (error) {
         res.status(400).send({ status: false, error: error.message })
     }
 }
 module.exports.login = login;
+
